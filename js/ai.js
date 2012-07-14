@@ -1,2 +1,3 @@
 function func() {
+alert('hola');
 }
