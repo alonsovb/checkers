@@ -1,5 +1,6 @@
 var x = $(document);
 var checker;
+var actualPlayer = 1;
 var player1 = "img/lemon.png";
 var player2 = "img/grape.png";
 x.ready(initialize);
@@ -53,7 +54,7 @@ function generate(x, y) {
 
 			// Get actual color
 			var color = colors[(i+j)%2];
-			$("#checker").append("<div class='"+color+"' id='pos"+j+""+i+"'>"+img+"</div>");
+			$("#checker").append("<div class='"+color+"' id='"+j+","+i+"'>"+img+"</div>");
 		}
 
 		// Jump to next line
@@ -61,7 +62,11 @@ function generate(x, y) {
 	}
 
 	$(".black,.white").hover(select,unselect);
+	$(".black,.white").droppable({
+		drop:tokenDropped
+	});
 	$(".token").draggable();
+
 }
 
 function select() {
@@ -70,4 +75,10 @@ function select() {
 
 function unselect() {
 	$(this).css("border", "2px solid black");
+}
+
+function tokenDropped() {
+	var x = this.id.split(',');
+	checker[x[0],x[1]] = 5;
+	alert(checker);
 }
